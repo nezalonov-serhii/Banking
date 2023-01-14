@@ -1,0 +1,22 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.listsBanks {
+  width: 600px;
+  height: 600px;
+
+  padding: 20px;
+  background-color: rgb(27, 46, 46);
+}
+
+.descrBank {
+  width: 600px;
+  height: 600px;
+
+  padding: 20px;
+  background-color: rgb(46, 27, 35);
+}
