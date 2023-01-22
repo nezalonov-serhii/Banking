@@ -75,3 +75,15 @@ function showDescriptionOfBanks(e) {
 
   descrBank.innerHTML = descriptionOfBank;
 }
+
+rootEl.addEventListener('click', clikOnChangesbtn);
+
+function clikOnChangesbtn(e) {
+  if (e.target.textContent === 'Edit') {
+    console.log(e.target.textContent);
+  }
+
+  if (e.target.textContent === 'Delete') {
+    console.log(e.target.textContent);
+  }
+}
