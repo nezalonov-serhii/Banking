@@ -1,45 +1,108 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
-#root {
+body {
+  font-size: 25px;
+  font-family: sans-serif;
+
   display: flex;
   justify-content: center;
+  align-items: center;
+
+  color: #fff;
+
+  width: 100vw;
+  height: 100vh;
 }
 
-.containerBanks {
-  width: 600px;
-  height: 600px;
-
-  padding: 20px;
-  background-color: rgb(27, 46, 46);
-}
-
-.descrBank {
-  width: 600px;
-  height: 600px;
-
-  padding: 20px;
-  background-color: rgb(46, 27, 35);
+p {
+  margin: 0;
 }
 
 .list {
   list-style: none;
-  width: 300px;
-  padding-left: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+
+  height: 400px;
+}
+
+.containerBanks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 600px;
+
+  padding: 25px;
+  background-color: rgb(27, 46, 46);
+
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+
+.descrBank {
+  width: 600px;
+
+  padding: 25px;
+  background-color: rgb(46, 27, 35);
+
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .first-bank {
-  color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
   width: 100%;
+  padding: 10px 10px 10px 20px;
+  margin-bottom: 8px;
+
   border: 1px solid white;
-  padding: 10px;
-  margin-bottom: 3px;
+  border-radius: 15px;
+
   cursor: pointer;
 }
 
-.buttonNewBank{
-  width: 200px;
+.btn {
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 5px 10px;
+
   cursor: pointer;
-  padding: 10px 15px;
+}
+
+.btn__delete {
+  background-color: rgb(114, 31, 31);
+  color: #fff;
+}
+
+.buttonNewBank {
+  margin-left: auto;
+  min-width: 200px;
+  cursor: pointer;
+  padding: 8px 10px;
+
+  border-radius: 10px;
+  border-color: transparent;
+}
+
+.description {
+  width: 100%;
+}
+
+.item-descr {
+  background-color: rgb(27, 46, 46);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.item-descr:not(:last-child) {
+  margin-bottom: 10px;
 }
