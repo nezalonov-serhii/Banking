@@ -8,7 +8,8 @@ body {
   justify-content: center;
   align-items: center;
 
-  color: #fff;
+  color: rgb(216, 216, 216);
+  background-color: rgb(216, 216, 216);
 
   width: 100vw;
   height: 100vh;
@@ -27,8 +28,13 @@ p {
 #root {
   display: flex;
   justify-content: center;
+  gap: 15px;
+  min-height: 365px;
 
-  height: 400px;
+  overflow: hidden;
+
+  background-color: rgb(220, 220, 0);
+  border-radius: 40px;
 }
 
 .containerBanks {
@@ -37,50 +43,91 @@ p {
   justify-content: space-between;
 
   width: 600px;
-
   padding: 25px;
-  background-color: rgb(27, 46, 46);
 
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
+  background-color: rgb(17, 17, 17);
 }
 
 .descrBank {
   width: 600px;
-
   padding: 25px;
-  background-color: rgb(46, 27, 35);
 
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
+  background-color: rgb(17, 17, 17);
 }
 
-.first-bank {
+.bank {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
+  min-height: 75px;
+
   padding: 10px 10px 10px 20px;
   margin-bottom: 8px;
 
-  border: 1px solid white;
+  background-color: transparent;
+  border: 3px solid rgb(220, 220, 0);
   border-radius: 15px;
 
   cursor: pointer;
 }
 
+.form__new-bank {
+  display: flex;
+  width: 100%;
+}
+
+.add-new-bank {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+
+  outline: none;
+  caret-color: rgb(216, 216, 216);
+  color: rgb(216, 216, 216);
+}
+
+.btn__agree {
+  padding: 5px 10px;
+
+  border: solid 3px rgb(220, 220, 0);
+  background-color: transparent;
+  color: rgb(220, 220, 0);
+}
+
+.add-first-bank {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 75px;
+  padding: 10px 10px 10px 20px;
+
+  border: 3px solid rgb(220, 220, 0);
+  border-radius: 15px;
+}
+
 .btn {
   border-radius: 10px;
-  border-color: transparent;
-  padding: 5px 10px;
 
   cursor: pointer;
 }
 
 .btn__delete {
-  background-color: rgb(114, 31, 31);
-  color: #fff;
+  padding: 5px 10px;
+
+  background-color: transparent;
+  border: 3px solid rgb(220, 220, 0);
+  color: rgb(216, 216, 216);
+}
+
+.btn__edit {
+  padding: 5px 10px;
+
+  background-color: transparent;
+  border: solid 3px rgb(220, 220, 0);
+  color: rgb(216, 216, 216);
 }
 
 .buttonNewBank {
@@ -91,6 +138,9 @@ p {
 
   border-radius: 10px;
   border-color: transparent;
+  background-color: transparent;
+  border: 3px solid rgb(220, 220, 0);
+  color: #fff;
 }
 
 .description {
@@ -98,9 +148,9 @@ p {
 }
 
 .item-descr {
-  background-color: rgb(27, 46, 46);
   padding: 10px;
   border-radius: 10px;
+  border: 3px solid rgb(220, 220, 0);
 }
 
 .item-descr:not(:last-child) {

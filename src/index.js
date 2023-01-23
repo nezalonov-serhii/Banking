@@ -37,10 +37,10 @@ function renderBankList() {
   const bankArray = banks
     .map(
       bank => `
-      <li class="first-bank" data-id = "${bank.id}">
+      <li class="bank" data-id = "${bank.id}">
         <p>${bank.name}</p>
           <div>
-            <button class = "btn">Edit</button>
+            <button class = "btn btn__edit">Edit</button>
             <button class = "btn btn__delete">Delete</button>
           </div>
         </li>
@@ -48,21 +48,21 @@ function renderBankList() {
     )
     .join('');
 
-  listOfBanks.insertAdjacentHTML('beforeend', bankArray);
+  listOfBanks.innerHTML = bankArray;
+
+  listOfBanks.addEventListener('click', showDescriptionOfBanks);
 }
 
 renderBankList();
 
-listOfBanks.addEventListener('click', showDescriptionOfBanks);
-
 function showDescriptionOfBanks(e) {
   if (e.target.nodeName !== 'LI') return;
 
-  const bankId = e.target.closest('.first-bank').dataset.id;
-  console.log(bankId);
+  const bankId = e.target.closest('.bank').dataset.id;
+  // console.log(bankId);
 
   const selectedBank = banks.find(bank => bank.id === bankId);
-  console.log(selectedBank);
+  // console.log(selectedBank);
 
   const descriptionOfBank = `
       <ul class = "list description">
@@ -76,14 +76,86 @@ function showDescriptionOfBanks(e) {
   descrBank.innerHTML = descriptionOfBank;
 }
 
-rootEl.addEventListener('click', clikOnChangesbtn);
+rootEl.addEventListener('click', clikOnChangesBtn);
 
-function clikOnChangesbtn(e) {
+function clikOnChangesBtn(e) {
+  e.preventDefault();
+
   if (e.target.textContent === 'Edit') {
-    console.log(e.target.textContent);
+    // console.log(e.target.textContent);
   }
 
   if (e.target.textContent === 'Delete') {
-    console.log(e.target.textContent);
+    // console.log(e.target.textContent);
+
+    const bankEl = e.target.closest('.bank');
+    const bankId = e.target.closest('.bank').dataset.id;
+    const indexBank = banks.findIndex(bank => bank.id === bankId);
+
+    bankEl.remove();
+    banks.splice(indexBank, 1);
+    console.log(banks);
+
+    if (!areThereAnyBanks('bank')) {
+      const blank = `<li class = "add-first-bank">
+        <p>
+          Add your first bank
+        </p>
+      </li>`;
+
+      listOfBanks.insertAdjacentHTML('beforeend', blank);
+
+      listOfBanks.removeEventListener('click', showDescriptionOfBanks);
+    }
+  }
+}
+
+function areThereAnyBanks(classChek) {
+  const arrOfBanks = [...listOfBanks.children];
+  return arrOfBanks.some(arr => arr.classList.contains(classChek));
+}
+
+buttonNewBank.addEventListener('click', clikOnNewBank);
+
+function clikOnNewBank(e) {
+  e.preventDefault();
+
+  if (areThereAnyBanks('add-first-bank')) {
+    listOfBanks.querySelector('.add-first-bank').remove();
+  }
+
+  const newBank = `<li class = "bank">
+    <form class = "form__new-bank">
+      <input class = "add-new-bank" name = "new_bank">
+      <button class = "btn btn__agree">&#10003</button>
+    </form>
+  </li>`;
+
+  listOfBanks.insertAdjacentHTML('beforeend', newBank);
+
+  document.querySelector('input[name = "new_bank"]').focus();
+
+  buttonNewBank.disabled = true;
+
+  const formNewBank = document.querySelector('.form__new-bank');
+
+  formNewBank.addEventListener('click', agreeNewBank);
+
+  function agreeNewBank(e) {
+    if (e.target.nodeName !== 'BUTTON') return;
+
+    banks.push({
+      id: `${Date.now()}`,
+      name: formNewBank.firstElementChild.value,
+      interestRate: '',
+      maxLoan: '',
+      minPayment: '',
+      loanTerm: '',
+    });
+
+    buttonNewBank.disabled = false;
+    renderBankList();
+
+    console.log(banks);
   }
 }
