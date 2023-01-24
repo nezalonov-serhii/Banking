@@ -75,16 +75,14 @@ p {
 
 .bank:hover,
 .bank:focus,
-.btn__delete:hover,
-.btn__delete:focus,
-.btn__edit:hover,
-.btn__edit:focus,
-.buttonNewBank:hover,
-.buttonNewBank:focus,
-.btn__agree:hover,
-.btn__agree:focus,
+.btn:hover,
+.btn:focus,
 .item-descr:hover {
   border-color: rgb(255, 255, 0);
+}
+
+button:disabled {
+  opacity: 0.4;
 }
 
 .form__new-bank {
@@ -106,7 +104,9 @@ p {
 .btn__agree {
   padding: 5px 10px;
   margin-left: 15px;
+  border-radius: 10px;
 
+  cursor: pointer;
   border: solid 3px rgb(130, 130, 0);
   background-color: transparent;
   color: rgb(255, 255, 0);
@@ -124,15 +124,11 @@ p {
   border-radius: 15px;
 }
 
-.btn {
+.btn__delete {
+  padding: 5px 10px;
   border-radius: 10px;
 
   cursor: pointer;
-}
-
-.btn__delete {
-  padding: 5px 10px;
-
   background-color: transparent;
   border: 3px solid rgb(130, 130, 0);
   color: rgb(216, 216, 216);
@@ -141,7 +137,9 @@ p {
 .btn__edit {
   padding: 5px 10px;
   min-width: 70px;
+  border-radius: 10px;
 
+  cursor: pointer;
   background-color: transparent;
   border: solid 3px rgb(130, 130, 0);
   color: rgb(216, 216, 216);
@@ -158,10 +156,6 @@ p {
   background-color: transparent;
   border: 3px solid rgb(130, 130, 0);
   color: #fff;
-}
-
-.buttonNewBank:disabled {
-  opacity: 0.4;
 }
 
 .description {

@@ -80,6 +80,8 @@ rootEl.addEventListener('click', clikOnChangesBtn);
 function clikOnChangesBtn(e) {
   e.preventDefault();
 
+  const allBtnEl = document.querySelectorAll('button');
+
   if (e.target.textContent === 'Edit') {
     // console.log(e.target.textContent);
 
@@ -88,6 +90,8 @@ function clikOnChangesBtn(e) {
 
     const bankId = e.target.closest('.bank').dataset.id;
     const selectedBank = banks.find(bank => bank.id === bankId);
+
+    disabledAllBtn(e.target);
 
     descrBank.addEventListener('input', desckrChange);
 
@@ -107,14 +111,16 @@ function clikOnChangesBtn(e) {
         selectedBank.loanTerm = +e.target.value;
     }
 
-    desckrChangeDisabled(false);
+    desckrInputChangeDisabled(false);
   } else if (e.target.textContent === '✓') {
     e.target.textContent = 'Edit';
 
-    desckrChangeDisabled(true);
+    [...allBtnEl].map(e => (e.disabled = false));
+
+    desckrInputChangeDisabled(true);
   }
 
-  function desckrChangeDisabled(status) {
+  function desckrInputChangeDisabled(status) {
     const itemsDesckr = descrBank.firstElementChild.children;
 
     [...itemsDesckr].map(
@@ -149,6 +155,13 @@ function clikOnChangesBtn(e) {
   }
 }
 
+function disabledAllBtn(el) {
+  const allBtnsEl = document.querySelectorAll('button');
+
+  [...allBtnsEl].map(btn => (btn.disabled = true));
+  el.disabled = false;
+}
+
 function areThereAnyBanks(classChek) {
   const arrOfBanks = [...listOfBanks.children];
   return arrOfBanks.some(arr => arr.classList.contains(classChek));
@@ -172,12 +185,11 @@ function clikOnNewBank(e) {
 
   listOfBanks.insertAdjacentHTML('beforeend', newBank);
 
+  disabledAllBtn(document.querySelector('.btn__agree'));
+
   document.querySelector('input[name = "new_bank"]').focus();
 
-  buttonNewBank.disabled = true;
-
   const formNewBank = document.querySelector('.form__new-bank');
-
   formNewBank.addEventListener('click', agreeNewBank);
 
   function agreeNewBank(e) {
