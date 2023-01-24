@@ -60,7 +60,6 @@ function showDescriptionOfBanks(e) {
 
   const bankId = e.target.closest('.bank').dataset.id;
   // console.log(bankId);
-
   const selectedBank = banks.find(bank => bank.id === bankId);
   // console.log(selectedBank);
 

@@ -67,10 +67,23 @@ p {
   margin-bottom: 8px;
 
   background-color: transparent;
-  border: 3px solid rgb(220, 220, 0);
+  border: 3px solid rgb(130, 130, 0);
   border-radius: 15px;
 
   cursor: pointer;
+}
+
+.bank:hover,
+.bank:focus,
+.btn__delete:hover,
+.btn__delete:focus,
+.btn__edit:hover,
+.btn__edit:focus,
+.buttonNewBank:hover,
+.buttonNewBank:focus,
+.btn__agree:hover,
+.btn__agree:focus {
+  border-color: rgb(255, 255, 0);
 }
 
 .form__new-bank {
@@ -91,9 +104,9 @@ p {
 .btn__agree {
   padding: 5px 10px;
 
-  border: solid 3px rgb(220, 220, 0);
+  border: solid 3px rgb(130, 130, 0);
   background-color: transparent;
-  color: rgb(220, 220, 0);
+  color: rgb(255, 255, 0);
 }
 
 .add-first-bank {
@@ -104,7 +117,7 @@ p {
   min-height: 75px;
   padding: 10px 10px 10px 20px;
 
-  border: 3px solid rgb(220, 220, 0);
+  border: 3px solid rgb(130, 130, 0);
   border-radius: 15px;
 }
 
@@ -118,7 +131,7 @@ p {
   padding: 5px 10px;
 
   background-color: transparent;
-  border: 3px solid rgb(220, 220, 0);
+  border: 3px solid rgb(130, 130, 0);
   color: rgb(216, 216, 216);
 }
 
@@ -126,7 +139,7 @@ p {
   padding: 5px 10px;
 
   background-color: transparent;
-  border: solid 3px rgb(220, 220, 0);
+  border: solid 3px rgb(130, 130, 0);
   color: rgb(216, 216, 216);
 }
 
@@ -139,8 +152,12 @@ p {
   border-radius: 10px;
   border-color: transparent;
   background-color: transparent;
-  border: 3px solid rgb(220, 220, 0);
+  border: 3px solid rgb(130, 130, 0);
   color: #fff;
+}
+
+.buttonNewBank:disabled {
+  opacity: 0.4;
 }
 
 .description {
@@ -150,7 +167,7 @@ p {
 .item-descr {
   padding: 10px;
   border-radius: 10px;
-  border: 3px solid rgb(220, 220, 0);
+  border: 3px solid rgb(130, 130, 0);
 }
 
 .item-descr:not(:last-child) {
