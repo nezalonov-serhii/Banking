@@ -38,7 +38,7 @@ function renderBankList() {
     .map(
       bank => `
       <li class="bank" data-id = "${bank.id}">
-        <p>${bank.name}</p>
+        <p class = "titel">${bank.name}</p>
           <div>
             <button class = "btn btn__edit">Edit</button>
             <button class = "btn btn__delete">Delete</button>
@@ -55,8 +55,8 @@ function renderBankList() {
 
 renderBankList();
 
-function showDescriptionOfBanks(e) {
-  if (e.target.nodeName !== 'LI') return;
+function showDescriptionOfBanks(e, active) {
+  if (e.target.nodeName !== 'LI' && e.target.textContent !== 'Edit') return;
 
   const bankId = e.target.closest('.bank').dataset.id;
   // console.log(bankId);
@@ -65,11 +65,11 @@ function showDescriptionOfBanks(e) {
 
   const descriptionOfBank = `
       <ul class = "list description">
-        <li class = "item-descr" >Bank: ${selectedBank.name}</li>
-        <li class = "item-descr" >Interest Rate: ${selectedBank.interestRate}</li>
-        <li class = "item-descr" >Max Loan: ${selectedBank.maxLoan}</li>
-        <li class = "item-descr" >Min Payment: ${selectedBank.minPayment}</li>
-        <li class = "item-descr" >Loan Term: ${selectedBank.loanTerm}</li>
+        <li class = "item-descr" ><label>Bank:<input value = "${selectedBank.name}" name = "name" disabled></label></li>
+        <li class = "item-descr" ><label>Interest Rate:<input value = "${selectedBank.interestRate}" name = "interestRate" disabled></label></li>
+        <li class = "item-descr" ><label>Max Loan:<input value = "${selectedBank.maxLoan}" name = "maxLoan" disabled></label></li>
+        <li class = "item-descr" ><label>Min Payment:<input value = "${selectedBank.minPayment}" name = "minPayment" disabled></label></li>
+        <li class = "item-descr" ><label>Loan Term:<input value = "${selectedBank.loanTerm}" name = "loanTerm" disabled></label></li>
       </ul>`;
 
   descrBank.innerHTML = descriptionOfBank;
@@ -82,6 +82,46 @@ function clikOnChangesBtn(e) {
 
   if (e.target.textContent === 'Edit') {
     // console.log(e.target.textContent);
+
+    showDescriptionOfBanks(e);
+    e.target.textContent = '✓';
+
+    const bankId = e.target.closest('.bank').dataset.id;
+    const selectedBank = banks.find(bank => bank.id === bankId);
+
+    descrBank.addEventListener('input', desckrChange);
+
+    function desckrChange(e) {
+      const titelEl = document.querySelector(`[data-id = "${bankId}"] .titel`);
+
+      if (e.target.name === 'name') {
+        selectedBank.name = e.target.value;
+        titelEl.textContent = e.target.value;
+      } else if (e.target.name === 'interestRate')
+        selectedBank.interestRate = +e.target.value;
+      else if (e.target.name === 'maxLoan')
+        selectedBank.maxLoan = +e.target.value;
+      else if (e.target.name === 'minPayment')
+        selectedBank.minPayment = +e.target.value;
+      else if (e.target.name === 'loanTerm')
+        selectedBank.loanTerm = +e.target.value;
+    }
+
+    desckrChangeDisabled(false);
+  } else if (e.target.textContent === '✓') {
+    e.target.textContent = 'Edit';
+
+    desckrChangeDisabled(true);
+  }
+
+  function desckrChangeDisabled(status) {
+    const itemsDesckr = descrBank.firstElementChild.children;
+
+    [...itemsDesckr].map(
+      e =>
+        (e.querySelector('input').disabled = e.querySelector('input').disabled =
+          status)
+    );
   }
 
   if (e.target.textContent === 'Delete') {
