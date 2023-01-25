@@ -1,198 +1,45 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
-body {
-  font-size: 25px;
-  font-family: sans-serif;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: rgb(216, 216, 216);
-  background-color: rgb(216, 216, 216);
-
-  width: 100vw;
-  height: 100vh;
-}
-
-p {
-  margin: 0;
-}
-
-.list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 #root {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  min-height: 440px;
-
-  overflow: hidden;
-
-  background-color: rgb(220, 220, 0);
-  border-radius: 40px;
 }
 
 .containerBanks {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   width: 600px;
-  padding: 25px;
+  height: 600px;
 
-  background-color: rgb(17, 17, 17);
+  padding: 20px;
+  background-color: rgb(27, 46, 46);
 }
 
 .descrBank {
   width: 600px;
-  padding: 25px;
+  height: 600px;
 
-  background-color: rgb(17, 17, 17);
+  padding: 20px;
+  background-color: rgb(46, 27, 35);
 }
 
-.bank {
+.list {
+  list-style: none;
+  width: 300px;
+  padding-left: 10px;
+}
+
+.first-bank {
+  color: white;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
   width: 100%;
-  min-height: 75px;
-
-  padding: 10px 10px 10px 20px;
-  margin-bottom: 8px;
-
-  background-color: transparent;
-  border: 3px solid rgb(130, 130, 0);
-  border-radius: 15px;
-
+  border: 1px solid white;
+  padding: 10px;
+  margin-bottom: 3px;
   cursor: pointer;
-}
-
-.bank:hover,
-.bank:focus,
-.btn:hover,
-.btn:focus,
-.item-descr:hover {
-  border-color: rgb(255, 255, 0);
-}
-
-button:disabled {
-  opacity: 0.4;
-}
-
-.form__new-bank {
-  display: flex;
-  width: 100%;
-}
-
-.add-new-bank {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-
-  outline: none;
-  caret-color: rgb(216, 216, 216);
-  color: rgb(216, 216, 216);
-  border-bottom: solid 2px rgb(216, 216, 216);
-}
-
-.btn__agree {
-  padding: 5px 10px;
-  margin-left: 15px;
-  border-radius: 10px;
-
-  cursor: pointer;
-  border: solid 3px rgb(130, 130, 0);
-  background-color: transparent;
-  color: rgb(255, 255, 0);
-}
-
-.add-first-bank {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  min-height: 75px;
-  padding: 10px 10px 10px 20px;
-
-  border: 3px solid rgb(130, 130, 0);
-  border-radius: 15px;
-}
-
-.btn__delete {
-  padding: 5px 10px;
-  border-radius: 10px;
-
-  cursor: pointer;
-  background-color: transparent;
-  border: 3px solid rgb(130, 130, 0);
-  color: rgb(216, 216, 216);
-}
-
-.btn__edit {
-  padding: 5px 10px;
-  min-width: 70px;
-  border-radius: 10px;
-
-  cursor: pointer;
-  background-color: transparent;
-  border: solid 3px rgb(130, 130, 0);
-  color: rgb(216, 216, 216);
 }
 
 .buttonNewBank {
-  margin-left: auto;
-  min-width: 200px;
+  width: 200px;
   cursor: pointer;
-  padding: 8px 10px;
-
-  border-radius: 10px;
-  border-color: transparent;
-  background-color: transparent;
-  border: 3px solid rgb(130, 130, 0);
-  color: #fff;
-}
-
-.description {
-  width: 100%;
-}
-
-.item-descr {
-  display: flex;
-  align-items: center;
-  flex-basis: 100%;
-
-  padding: 15px;
-  border-radius: 10px;
-  border: 3px solid rgb(130, 130, 0);
-}
-
-.item-descr label {
-  display: flex;
-  flex-shrink: 0;
-  width: 100%;
-}
-
-.item-descr input {
-  width: 100%;
-  flex-shrink: 20000;
-  background-color: transparent;
-  border: none;
-
-  color: rgb(216, 216, 216);
-  outline: none;
-  border-bottom: solid 2px rgb(216, 216, 216);
-}
-
-.item-descr input:disabled {
-  border-bottom: solid 2px transparent;
-}
-
-.item-descr:not(:last-child) {
-  margin-bottom: 10px;
+  padding: 10px 15px;
 }
