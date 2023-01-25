@@ -55,7 +55,7 @@ function renderBankList() {
 
 renderBankList();
 
-function showDescriptionOfBanks(e, active) {
+function showDescriptionOfBanks(e) {
   if (e.target.nodeName !== 'LI' && e.target.textContent !== 'Edit') return;
 
   const bankId = e.target.closest('.bank').dataset.id;
@@ -112,7 +112,7 @@ function clikOnChangesBtn(e) {
     }
 
     desckrInputChangeDisabled(false);
-  } else if (e.target.textContent === '✓') {
+  } else if (e.target.classList.contains('btn__edit')) {
     e.target.textContent = 'Edit';
 
     [...allBtnEl].map(e => (e.disabled = false));
@@ -121,6 +121,7 @@ function clikOnChangesBtn(e) {
   }
 
   function desckrInputChangeDisabled(status) {
+    console.log(descrBank);
     const itemsDesckr = descrBank.firstElementChild.children;
 
     [...itemsDesckr].map(
@@ -206,7 +207,5 @@ function clikOnNewBank(e) {
 
     buttonNewBank.disabled = false;
     renderBankList();
-
-    console.log(banks);
   }
 }
