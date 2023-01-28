@@ -35,9 +35,10 @@ containerBanks.append(listOfBanks, buttonNewBank);
 function renderBankList() {
   const bankArray = banks.map(
     bank => `
-        <li class="first-bank"> ${bank.name}
+        <li class="first-bank" data-id = "${bank.id}"> 
+        <p>${bank.name}</p>
      <div>
-               <button>E</button>
+               <button>E</first-bankbutton>
         <button>D</button>
              </div>
            </li>
@@ -46,7 +47,47 @@ function renderBankList() {
  
   listOfBanks.insertAdjacentHTML('beforeend', bankArray);
 }
+renderBankList()
 
-renderBankList();
 
 
+
+// My task
+
+
+
+listOfBanks.addEventListener("click", showDescriptionOfBanks)
+
+
+function showDescriptionOfBanks(e){
+ if(e.target.nodeName !== "P" ){
+return}
+// console.log(e)
+const identification = e.target.closest(".first-bank").dataset.id
+// console.log(identification)
+// const find = banks.find( bank => bank.id  === identification) 
+// console.log(find)
+// findParticularId(identification)
+nameOfBanks(identification)
+console.log(findParticularId(identification))
+
+}
+
+// findParticularId(banks,identification)
+
+
+function findParticularId(identification){
+
+return banks.find( bank => bank.id === identification) 
+
+  
+}
+function nameOfBanks(identification){
+  return banks.map(bank => {
+if(bank.id === identification){
+  console.log(bank.name)
+}
+  })
+}
+// console.log(findParticularId())
+// Може краще зробити якось, просто через фільтр вийде зробити
