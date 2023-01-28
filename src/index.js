@@ -37,10 +37,11 @@ function renderBankList() {
   const bankArray = banks
     .map(
       bank => `
-        <li class="first-bank"> ${bank.name}
+        <li class="first-bank" data-id = "${bank.id}"> 
+        <p>${bank.name}</p>
      <div>
-               <button>Edit</button>
-        <button>Delete</button>
+               <button>E</button>
+        <button>D</button>
              </div>
            </li>
          `
@@ -49,5 +50,30 @@ function renderBankList() {
 
   listOfBanks.insertAdjacentHTML('beforeend', bankArray);
 }
-
 renderBankList();
+
+// My task
+listOfBanks.addEventListener('click', showDescriptionOfBanks);
+
+function showDescriptionOfBanks(e) {
+  if (e.target.nodeName !== 'P') {
+    return;
+  }
+
+  const identification = e.target.closest('.first-bank').dataset.id;
+
+  nameOfBanks(identification);
+  console.log(findParticularId(identification));
+}
+
+function findParticularId(identification) {
+  return banks.find(bank => bank.id === identification);
+}
+
+function nameOfBanks(identification) {
+  return banks.map(bank => {
+    if (bank.id === identification) {
+      console.log(bank.name);
+    }
+  });
+}
