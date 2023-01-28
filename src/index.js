@@ -25,9 +25,10 @@ const listOfBanks = document.createElement('ul');
 const buttonNewBank = document.createElement('button');
 
 containerBanks.classList.add('containerBanks');
+listOfBanks.classList.add('listOfBanks');
 descrBank.classList.add('descrBank');
 buttonNewBank.classList.add('buttonNewBank');
-buttonNewBank.textContent = 'Add new Bank';
+buttonNewBank.textContent = 'Create a new bank';
 
 rootEl.append(containerBanks, descrBank);
 containerBanks.append(listOfBanks, buttonNewBank);
@@ -38,8 +39,8 @@ function renderBankList() {
       bank => `
         <li class="first-bank"> ${bank.name}
      <div>
-               <button>E</button>
-        <button>D</button>
+               <button>Edit</button>
+        <button>Delete</button>
              </div>
            </li>
          `
