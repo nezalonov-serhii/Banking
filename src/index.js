@@ -53,27 +53,48 @@ function renderBankList() {
 renderBankList();
 
 // My task
-listOfBanks.addEventListener('click', showDescriptionOfBanks);
+listOfBanks.addEventListener('click', showDescriptionOfBank);
 
-function showDescriptionOfBanks(e) {
+function showDescriptionOfBank(e) {
   if (e.target.nodeName !== 'P') {
     return;
   }
 
   const identification = e.target.closest('.first-bank').dataset.id;
-
-  nameOfBanks(identification);
-  console.log(findParticularId(identification));
+  const currentBank = findParticularId(identification);
+  renderBankInfo(currentBank);
 }
 
 function findParticularId(identification) {
   return banks.find(bank => bank.id === identification);
 }
 
-function nameOfBanks(identification) {
-  return banks.map(bank => {
-    if (bank.id === identification) {
-      console.log(bank.name);
-    }
-  });
+// function getBankInfoById(identification) {
+//   return banks.map(bank => {
+//     if (bank.id === identification) {
+//       console.log('getBankInfoById:', bank.name);
+//     }
+//   });
+// }
+
+function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
+  // console.log(bank.name);
+  const markup = `
+  <h2 class="bank-card-title">${name}</h2>
+<ul class="bank-data list">
+  <li class="bank-data-chunk">
+    <p class="inform">Interest Rate: ${interestRate}%</p>
+  </li>
+  <li class="bank-data-chunk">
+    <p class="inform">Max Loan: ${maxLoan}$</p>
+  </li>
+  <li class="bank-data-chunk">
+    <p class="inform">Min Payment: ${minPayment}$</p>
+  </li>
+  <li class="bank-data-chunk">
+    <p class="inform">Loan Term: ${loanTerm} months</p>
+  </li>
+</ul>
+  `;
+  descrBank.innerHTML = markup;
 }
