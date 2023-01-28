@@ -1,3 +1,5 @@
+import renderModal from './components/modal';
+
 const banks = [
   {
     id: '435tr34wrt',
@@ -18,10 +20,13 @@ const banks = [
 ];
 
 const rootEl = document.querySelector('#root');
+const modalWindow = document.querySelector('#modal');
+console.log('🚀 ~ modalWindow', modalWindow);
 
 const containerBanks = document.createElement('div');
 const descrBank = document.createElement('div');
 const listOfBanks = document.createElement('ul');
+
 const buttonNewBank = document.createElement('button');
 
 containerBanks.classList.add('containerBanks');
@@ -32,6 +37,33 @@ buttonNewBank.textContent = 'Create a new bank';
 
 rootEl.append(containerBanks, descrBank);
 containerBanks.append(listOfBanks, buttonNewBank);
+
+buttonNewBank.addEventListener('click', () => {
+  const markup = `<div class="backdrop" data-modal>
+    <div class="modal">
+      <form action="">
+        <input type="text" name="name" placeholder="NAME" />
+        <input
+          type="number"
+          name="interestRateme"
+          placeholder="interestRateme"
+        />
+        <input type="number" name="maxLoan" placeholder="maxLoan" />
+        <input type="number" name="minPayment" placeholder="minPayment" />
+        <input type="number" name="loanTerm" placeholder="loanTerm" />
+        <button type="submit">Submit</button>
+      </form>
+      <button class="btn__close" type="button" data-modal-close>Close</button>
+    </div>
+  </div>`;
+
+  modalWindow.innerHTML = markup;
+
+  const closeButton = document.querySelector('.btn__close');
+  closeButton.addEventListener('click', () => {
+    modalWindow.innerHTML = '';
+  });
+});
 
 function renderBankList() {
   const bankArray = banks
@@ -69,16 +101,7 @@ function findParticularId(identification) {
   return banks.find(bank => bank.id === identification);
 }
 
-// function getBankInfoById(identification) {
-//   return banks.map(bank => {
-//     if (bank.id === identification) {
-//       console.log('getBankInfoById:', bank.name);
-//     }
-//   });
-// }
-
 function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
-  // console.log(bank.name);
   const markup = `
   <h2 class="bank-card-title">${name}</h2>
 <ul class="bank-data list">
@@ -98,3 +121,8 @@ function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   `;
   descrBank.innerHTML = markup;
 }
+
+// function renderModal() {
+//   console.log('asdasd');
+
+// }
