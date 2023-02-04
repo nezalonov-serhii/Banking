@@ -1,5 +1,5 @@
 import renderModal from './components/modal';
-
+// import changeValueOfBank from "./components/changeDataBanks"
 const banks = [
   {
     id: '435tr34wrt',
@@ -81,7 +81,7 @@ function submitForm(e) {
     interestRate: e.currentTarget.interestRate.value,
     maxLoan: e.currentTarget.maxLoan.value,
     minPayment: e.currentTarget.minPayment.value,
-    loanTerm: e.currentTarget.maxLoan.value,
+    loanTerm: e.currentTarget.loanTerm.value,
   };
 
   banks.push(newBankData);
@@ -98,8 +98,8 @@ function renderBankList() {
         <li class="first-bank" data-id = "${bank.id}"> 
         ${bank.name}
      <div>
-               <button>E</button>
-        <button>D</button>
+               <button class="edit">E</button>
+        <button class="delete">D</button>
              </div>
            </li>
          `
@@ -107,7 +107,15 @@ function renderBankList() {
     .join('');
 
   listOfBanks.innerHTML = bankArray;
+
+  const buttonEdit = document.querySelector('.edit');
+  const buttonDelete = document.querySelector('.edit');
+
+  buttonEdit.addEventListener('click', changeValueOfBank);
+  // console.log(buttonEdit)
+  // buttonEdit.addEventListener('click', deleteBank)
 }
+
 renderBankList();
 
 // My task
@@ -150,4 +158,48 @@ function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
 </ul>
   `;
   descrBank.innerHTML = markup;
+}
+
+function changeValueOfBank(e) {
+  e.preventDefault();
+
+  const identification = e.target.closest('.first-bank').dataset.id;
+
+  function findParticularId(identification) {
+    return banks.find(bank => bank.id === identification);
+  }
+  const preciseBank = findParticularId(identification);
+
+  const markup = `<div class="backdrop" data-modal>
+    <div class="modal">
+      <form action="" class="form">
+        <input type="text" name="name" placeholder="NAME"  value="${preciseBank.name}" />
+        <input
+          type="number"
+          name="interestRate"
+          placeholder="interestRate "  value="${preciseBank.interestRate}"
+        />
+        <input type="number" name="maxLoan" placeholder="maxLoan" value="${preciseBank.maxLoan}"  />
+        <input type="number" name="minPayment" placeholder="minPayment" value="${preciseBank.minPayment}"  />
+        <input type="number" name="loanTerm" placeholder="loanTerm"  value="${preciseBank.loanTerm}" />
+        <button type="submit">Submit</button>
+      </form>
+      <button class="btn__close" type="button" data-modal-close>Close</button>
+    </div>
+  </div>`;
+
+  modalWindow.innerHTML = markup;
+  const form = document.querySelector('.form');
+
+  form.addEventListener('submit', updateBank);
+  function updateBank(e) {
+    e.preventDefault();
+    preciseBank.name = e.currentTarget.name.value;
+
+    preciseBank.interestRate = e.currentTarget.interestRate.value;
+    preciseBank.maxLoan = e.currentTarget.maxLoan.value;
+    preciseBank.minPayment = e.currentTarget.minPayment.value;
+    preciseBank.loanTerm = e.currentTarget.loanTerm.value;
+    modalWindow.innerHTML = '';
+  }
 }
