@@ -72,7 +72,7 @@ buttonNewBank.addEventListener('click', () => {
 function submitForm(e) {
   e.preventDefault();
 
-  // e.currentTarget.elements.name;
+ 
 
   const newBankData = {
     id: String(Date.now()),
@@ -108,12 +108,40 @@ function renderBankList() {
 
   listOfBanks.innerHTML = bankArray;
 
-  const buttonEdit = document.querySelector('.edit');
-  const buttonDelete = document.querySelector('.edit');
 
-  buttonEdit.addEventListener('click', changeValueOfBank);
-  // console.log(buttonEdit)
-  // buttonEdit.addEventListener('click', deleteBank)
+
+    listOfBanks.addEventListener('click', changeable)
+
+  function changeable(e) {
+    if (e.target.classList.contains("edit")) {
+    changeValueOfBank(e)
+   
+    }
+    else if (e.target.classList.contains("delete")){
+  deleteBank(e)
+  }
+}
+  
+
+
+}
+
+
+
+function deleteBank(e) {
+  const identification = e.target.closest('.first-bank').dataset.id;
+  const bankIndex = banks.findIndex(bank => bank.id === identification) 
+  
+
+
+  banks.splice(bankIndex, 1);
+
+
+  modalWindow.innerHTML = '';
+
+  renderBankList();
+
+  
 }
 
 renderBankList();
