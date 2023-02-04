@@ -41,12 +41,12 @@ containerBanks.append(listOfBanks, buttonNewBank);
 buttonNewBank.addEventListener('click', () => {
   const markup = `<div class="backdrop" data-modal>
     <div class="modal">
-      <form action="">
+      <form action="" class="form">
         <input type="text" name="name" placeholder="NAME" />
         <input
           type="number"
-          name="interestRateme"
-          placeholder="interestRateme"
+          name="interestRate"
+          placeholder="interestRate"
         />
         <input type="number" name="maxLoan" placeholder="maxLoan" />
         <input type="number" name="minPayment" placeholder="minPayment" />
@@ -63,14 +63,40 @@ buttonNewBank.addEventListener('click', () => {
   closeButton.addEventListener('click', () => {
     modalWindow.innerHTML = '';
   });
+
+  const form = document.querySelector('.form');
+
+  form.addEventListener('submit', submitForm);
 });
+
+function submitForm(e) {
+  e.preventDefault();
+
+  // e.currentTarget.elements.name;
+
+  const newBankData = {
+    id: String(Date.now()),
+
+    name: e.currentTarget.elements.name.value,
+    interestRate: e.currentTarget.interestRate.value,
+    maxLoan: e.currentTarget.maxLoan.value,
+    minPayment: e.currentTarget.minPayment.value,
+    loanTerm: e.currentTarget.maxLoan.value,
+  };
+
+  banks.push(newBankData);
+
+  modalWindow.innerHTML = '';
+
+  renderBankList();
+}
 
 function renderBankList() {
   const bankArray = banks
     .map(
       bank => `
         <li class="first-bank" data-id = "${bank.id}"> 
-        <p>${bank.name}</p>
+        ${bank.name}
      <div>
                <button>E</button>
         <button>D</button>
@@ -80,7 +106,7 @@ function renderBankList() {
     )
     .join('');
 
-  listOfBanks.insertAdjacentHTML('beforeend', bankArray);
+  listOfBanks.innerHTML = bankArray;
 }
 renderBankList();
 
@@ -88,11 +114,15 @@ renderBankList();
 listOfBanks.addEventListener('click', showDescriptionOfBank);
 
 function showDescriptionOfBank(e) {
-  if (e.target.nodeName !== 'P') {
+  if (e.target.nodeName !== 'LI') {
     return;
   }
 
   const identification = e.target.closest('.first-bank').dataset.id;
+
+  console.log(identification);
+  console.log(banks);
+
   const currentBank = findParticularId(identification);
   renderBankInfo(currentBank);
 }
@@ -121,8 +151,3 @@ function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   `;
   descrBank.innerHTML = markup;
 }
-
-// function renderModal() {
-//   console.log('asdasd');
-
-// }
