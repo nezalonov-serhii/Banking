@@ -21,7 +21,6 @@ const banks = [
 
 const rootEl = document.querySelector('#root');
 const modalWindow = document.querySelector('#modal');
-console.log('🚀 ~ modalWindow', modalWindow);
 
 const containerBanks = document.createElement('div');
 const descrBank = document.createElement('div');
@@ -37,6 +36,8 @@ buttonNewBank.textContent = 'Create a new bank';
 
 rootEl.append(containerBanks, descrBank);
 containerBanks.append(listOfBanks, buttonNewBank);
+
+renderBankList();
 
 buttonNewBank.addEventListener('click', () => {
   const markup = `<div class="backdrop" data-modal>
@@ -65,89 +66,30 @@ buttonNewBank.addEventListener('click', () => {
   });
 
   const form = document.querySelector('.form');
-
   form.addEventListener('submit', submitForm);
 });
-
-function submitForm(e) {
-  e.preventDefault();
-
- 
-
-  const newBankData = {
-    id: String(Date.now()),
-
-    name: e.currentTarget.elements.name.value,
-    interestRate: e.currentTarget.interestRate.value,
-    maxLoan: e.currentTarget.maxLoan.value,
-    minPayment: e.currentTarget.minPayment.value,
-    loanTerm: e.currentTarget.loanTerm.value,
-  };
-
-  banks.push(newBankData);
-
-  modalWindow.innerHTML = '';
-
-  renderBankList();
-}
 
 function renderBankList() {
   const bankArray = banks
     .map(
       bank => `
         <li class="first-bank" data-id = "${bank.id}"> 
-        ${bank.name}
-     <div>
-               <button class="edit">E</button>
-        <button class="delete">D</button>
-             </div>
-           </li>
+            ${bank.name}
+          <div>
+            <button class="edit">E</button>
+            <button class="delete">D</button>
+          </div>
+        </li>
          `
     )
     .join('');
 
   listOfBanks.innerHTML = bankArray;
 
-
-
-    listOfBanks.addEventListener('click', changeable)
-
-  function changeable(e) {
-    if (e.target.classList.contains("edit")) {
-    changeValueOfBank(e)
-   
-    }
-    else if (e.target.classList.contains("delete")){
-  deleteBank(e)
-  }
+  listOfBanks.addEventListener('click', showDescriptionOfBank);
 }
-  
-
-
-}
-
-
-
-function deleteBank(e) {
-  const identification = e.target.closest('.first-bank').dataset.id;
-  const bankIndex = banks.findIndex(bank => bank.id === identification) 
-  
-
-
-  banks.splice(bankIndex, 1);
-
-
-  modalWindow.innerHTML = '';
-
-  renderBankList();
-
-  
-}
-
-renderBankList();
 
 // My task
-listOfBanks.addEventListener('click', showDescriptionOfBank);
 
 function showDescriptionOfBank(e) {
   if (e.target.nodeName !== 'LI') {
@@ -155,16 +97,9 @@ function showDescriptionOfBank(e) {
   }
 
   const identification = e.target.closest('.first-bank').dataset.id;
+  const preciseBank = findParticularId(identification);
 
-  console.log(identification);
-  console.log(banks);
-
-  const currentBank = findParticularId(identification);
-  renderBankInfo(currentBank);
-}
-
-function findParticularId(identification) {
-  return banks.find(bank => bank.id === identification);
+  renderBankInfo(preciseBank);
 }
 
 function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
@@ -188,14 +123,65 @@ function renderBankInfo({ name, interestRate, maxLoan, minPayment, loanTerm }) {
   descrBank.innerHTML = markup;
 }
 
+function findParticularId(identification) {
+  return banks.find(bank => bank.id === identification);
+}
+
+//!=========================================================================================
+
+function submitForm(e) {
+  e.preventDefault();
+
+  const newBankData = {
+    id: String(Date.now()),
+
+    name: e.currentTarget.name.value,
+    interestRate: e.currentTarget.interestRate.value,
+    maxLoan: e.currentTarget.maxLoan.value,
+    minPayment: e.currentTarget.minPayment.value,
+    loanTerm: e.currentTarget.loanTerm.value,
+  };
+
+  banks.push(newBankData);
+
+  modalWindow.innerHTML = '';
+
+  renderBankList();
+}
+
+listOfBanks.addEventListener('click', changeable);
+
+function changeable(e) {
+  if (e.target.classList.contains('edit')) {
+    changeValueOfBank(e);
+  } else if (e.target.classList.contains('delete')) {
+    deleteBank(e);
+  }
+}
+
+function deleteBank(e) {
+  const identification = e.target.closest('.first-bank').dataset.id;
+  const bankIndex = banks.findIndex(bank => bank.id === identification);
+
+  banks.splice(bankIndex, 1);
+
+  renderBankList();
+
+  if (!banks[0]) {
+    listOfBanks.innerHTML = `
+        <li class="first-bank"> 
+            Add a new Bank
+        </li>
+         `;
+
+    listOfBanks.removeEventListener('click', showDescriptionOfBank);
+  }
+}
+
 function changeValueOfBank(e) {
   e.preventDefault();
 
   const identification = e.target.closest('.first-bank').dataset.id;
-
-  function findParticularId(identification) {
-    return banks.find(bank => bank.id === identification);
-  }
   const preciseBank = findParticularId(identification);
 
   const markup = `<div class="backdrop" data-modal>
@@ -217,17 +203,28 @@ function changeValueOfBank(e) {
   </div>`;
 
   modalWindow.innerHTML = markup;
+
+  const closeButton = document.querySelector('.btn__close');
   const form = document.querySelector('.form');
 
+  closeButton.addEventListener('click', () => {
+    modalWindow.innerHTML = '';
+  });
+
   form.addEventListener('submit', updateBank);
+
   function updateBank(e) {
     e.preventDefault();
-    preciseBank.name = e.currentTarget.name.value;
 
+    preciseBank.name = e.currentTarget.name.value;
     preciseBank.interestRate = e.currentTarget.interestRate.value;
     preciseBank.maxLoan = e.currentTarget.maxLoan.value;
     preciseBank.minPayment = e.currentTarget.minPayment.value;
     preciseBank.loanTerm = e.currentTarget.loanTerm.value;
+
     modalWindow.innerHTML = '';
+
+    renderBankList();
+    renderBankInfo(preciseBank);
   }
 }
