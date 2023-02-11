@@ -42,7 +42,7 @@ renderBankList();
 buttonNewBank.addEventListener('click', () => {
   const markup = `<div class="backdrop" data-modal>
     <div class="modal">
-      <form action="" class="form">
+      <form action="" class="form form--create">
         <input type="text" name="name" placeholder="NAME" />
         <input
           type="number"
@@ -52,20 +52,27 @@ buttonNewBank.addEventListener('click', () => {
         <input type="number" name="maxLoan" placeholder="maxLoan" />
         <input type="number" name="minPayment" placeholder="minPayment" />
         <input type="number" name="loanTerm" placeholder="loanTerm" />
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn__create-bank">Create new bank</button>
       </form>
-      <button class="btn__close" type="button" data-modal-close>Close</button>
+      <button class="btn__close" type="button" data-modal-close>X</button>
     </div>
   </div>`;
 
   modalWindow.innerHTML = markup;
 
-  const closeButton = document.querySelector('.btn__close');
-  closeButton.addEventListener('click', () => {
+  const backdrop = document.querySelector('.backdrop');
+  backdrop.addEventListener('click', e => {
+    if (
+      e.currentTarget !== e.target &&
+      !e.target.classList.contains('btn__close')
+    )
+      return;
     modalWindow.innerHTML = '';
   });
 
   const form = document.querySelector('.form');
+  form.elements.name.focus();
+
   form.addEventListener('submit', submitForm);
 });
 
@@ -76,8 +83,8 @@ function renderBankList() {
         <li class="first-bank" data-id = "${bank.id}"> 
             ${bank.name}
           <div>
-            <button class="edit">E</button>
-            <button class="delete">D</button>
+            <button class="edit">Edit</button>
+            <button class="delete">Delete</button>
           </div>
         </li>
          `
@@ -166,6 +173,7 @@ function deleteBank(e) {
   banks.splice(bankIndex, 1);
 
   renderBankList();
+  descrBank.innerHTML = '';
 
   if (!banks[0]) {
     listOfBanks.innerHTML = `
@@ -187,27 +195,44 @@ function changeValueOfBank(e) {
   const markup = `<div class="backdrop" data-modal>
     <div class="modal">
       <form action="" class="form">
-        <input type="text" name="name" placeholder="NAME"  value="${preciseBank.name}" />
+      <label> <span>Name:</span>
+        <input type="text" name="name"   value="${preciseBank.name}" />
+      </label>
+      <label> <span>Interest rate:</span>
         <input
-          type="number"
-          name="interestRate"
-          placeholder="interestRate "  value="${preciseBank.interestRate}"
+        type="number"
+        name="interestRate"
+        value="${preciseBank.interestRate}"
         />
-        <input type="number" name="maxLoan" placeholder="maxLoan" value="${preciseBank.maxLoan}"  />
-        <input type="number" name="minPayment" placeholder="minPayment" value="${preciseBank.minPayment}"  />
-        <input type="number" name="loanTerm" placeholder="loanTerm"  value="${preciseBank.loanTerm}" />
-        <button type="submit">Submit</button>
+      </label> 
+      <label> <span>Max loan:</span>
+        <input type="number" name="maxLoan" value="${preciseBank.maxLoan}"  />
+      </label>
+      <label> <span>Min payment:</span>
+        <input type="number" name="minPayment" value="${preciseBank.minPayment}"  />
+      </label>
+      <label> <span>Loan term</span>
+        <input type="number" name="loanTerm"  value="${preciseBank.loanTerm}" />
+      </label>
+        <button type="submit" class="btn__create-bank">Edit bank</button>
       </form>
-      <button class="btn__close" type="button" data-modal-close>Close</button>
+      <button class="btn__close" type="button" data-modal-close>X</button>
     </div>
   </div>`;
 
   modalWindow.innerHTML = markup;
 
-  const closeButton = document.querySelector('.btn__close');
   const form = document.querySelector('.form');
+  const backdrop = document.querySelector('.backdrop');
 
-  closeButton.addEventListener('click', () => {
+  form.elements.name.focus();
+
+  backdrop.addEventListener('click', e => {
+    if (
+      e.currentTarget !== e.target &&
+      !e.target.classList.contains('btn__close')
+    )
+      return;
     modalWindow.innerHTML = '';
   });
 

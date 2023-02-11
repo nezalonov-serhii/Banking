@@ -15,13 +15,69 @@
   transform: translate(-50%, -50%);
 
   width: 400px;
-  height: 300px;
-  background-color: black;
+  background-color: rgb(17, 17, 17);
+  border: solid 4px rgb(255, 255, 0);
+  border-radius: 20px;
 
-  padding: 20px;
+  padding: 30px;
 }
 
-input {
+.form input {
   width: 100%;
+  padding: 5px;
+  flex-shrink: 1;
+  outline: none;
+
+  background-color: transparent;
+  color: #fff;
+  border: none;
+}
+
+.form--create input {
+  padding: 5px;
+  border-bottom: solid 2px;
   margin-bottom: 15px;
+}
+
+.form label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  border-bottom: solid 2px;
+  color: #fff;
+}
+
+.form span {
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.btn__create-bank {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+
+  border: 2px solid rgb(255, 255, 0);
+  border-radius: 10px;
+  background-color: transparent;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.btn__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  border: none;
+
+  border: 2px solid rgb(255, 255, 0);
+  border-radius: 50%;
+  background-color: transparent;
+  color: #fff;
 }
